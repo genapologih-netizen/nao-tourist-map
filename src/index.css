@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Golos+Text:wght@400;500;600&display=swap');
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+:root {
+  --arctic-deep: #0a1628;
+  --arctic-navy: #0d2144;
+  --arctic-blue: #1a3a6b;
+  --arctic-teal: #1e6b7a;
+  --aurora-green: #2dd4bf;
+  --aurora-purple: #818cf8;
+  --gold: #f5a623;
+  --gold-light: #fbbf24;
+  --snow: #f0f4f8;
+  --snow-white: #ffffff;
+  --text-muted: #94a3b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Golos Text', sans-serif;
+  background-color: var(--arctic-deep);
+  color: var(--snow);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--arctic-deep); }
+::-webkit-scrollbar-thumb { background: var(--arctic-blue); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--arctic-teal); }
+
+.leaflet-container {
+  background: var(--arctic-deep) !important;
+  font-family: 'Golos Text', sans-serif;
+}
+
+.leaflet-popup-content-wrapper {
+  background: var(--arctic-navy);
+  color: var(--snow);
+  border: 1px solid var(--arctic-teal);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.leaflet-popup-tip {
+  background: var(--arctic-navy);
+}
+
+.leaflet-popup-close-button {
+  color: var(--text-muted) !important;
+}
+
+.leaflet-tile {
+  filter: brightness(0.7) saturate(0.6) hue-rotate(190deg);
+}
+
+@keyframes markerPulse {
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.5); }
+  50% { transform: scale(1.1); opacity: 0.9; box-shadow: 0 0 0 8px rgba(245, 166, 35, 0); }
+}
+
+.pulse-marker {
+  animation: markerPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes aurora {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.aurora-text {
+  background: linear-gradient(90deg, #f5a623, #2dd4bf, #818cf8, #f5a623);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: aurora 5s ease infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-anim {
+  animation: float 6s ease-in-out infinite;
+}
+
+.scroll-hide::-webkit-scrollbar { display: none; }
+.scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(245,166,35,0.1);
+}
