@@ -29,7 +29,7 @@ jobs:
         with:
           host: kurbanyk.beget.tech
           username: kurbanyk
-          password: ${{ secrets.BEGET_SSH_PASSWORD }}
+          key: ${{ secrets.BEGET_SSH_KEY }}
           port: 22
           source: dist/*
           target: /home/kurbanyk/turizm-nao.ru/public_html/
