@@ -24,14 +24,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Beget via SSH
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy to Beget via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: kurbanyk.beget.tech
-          username: kurbanyk
-          key: ${{ secrets.BEGET_SSH_KEY }}
-          port: 22
-          source: dist/*
-          target: /home/kurbanyk/turizm-nao.ru/public_html/
-          strip_components: 1
-          rm: true
+          server: kurbanyk.beget.tech
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: /turizm-nao.ru/public_html/
+          dangerous-clean-slate: true
