@@ -75,14 +75,14 @@ export default function Hero() {
           <span style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             padding: '7px 20px',
-            background: '#FEF3DC',
-            border: '1px solid #F0C060',
+            background: 'rgba(26,58,92,0.06)',
+            border: '1px solid rgba(26,58,92,0.12)',
             borderRadius: '100px',
-            fontSize: '11px', fontWeight: 600, color: '#C47A08',
+            fontSize: '11px', fontWeight: 600, color: '#2A5A84',
             letterSpacing: '2.5px', textTransform: 'uppercase',
             marginBottom: '36px', fontFamily: 'Golos Text, sans-serif',
           }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#C47A08', flexShrink: 0 }} />
+            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#5C82A0', flexShrink: 0, opacity: 0.7 }} />
             Ненецкий автономный округ
           </span>
         </motion.div>
