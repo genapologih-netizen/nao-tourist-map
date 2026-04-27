@@ -2,68 +2,65 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const navLinks = [
-  { label: 'Карта', href: '#map' },
-  { label: 'Места', href: '#places' },
-  { label: 'Категории', href: '#categories' },
-  { label: 'О регионе', href: '#about' },
+  { label: 'Достопримечательности', href: '#places' },
+  { label: 'Категории',             href: '#categories' },
+  { label: 'О регионе',             href: '#about' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    const fn = () => setScrolled(window.scrollY > 60)
+    window.addEventListener('scroll', fn)
+    return () => window.removeEventListener('scroll', fn)
   }, [])
 
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        padding: '0 32px',
-        height: '68px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        backgroundColor: scrolled ? 'rgba(10,22,40,0.92)' : 'transparent',
-        borderBottom: scrolled ? '1px solid rgba(26,58,107,0.4)' : 'none',
-        transition: 'background-color 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease',
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+        padding: '0 48px', height: '72px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        backdropFilter: scrolled ? 'blur(24px) saturate(1.6)' : 'none',
+        backgroundColor: scrolled ? 'rgba(242,246,250,0.92)' : 'transparent',
+        borderBottom: scrolled ? '1px solid #CDD8E4' : '1px solid transparent',
+        transition: 'background-color 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease',
       }}
     >
-      <a href="#" style={{ textDecoration: 'none' }}>
-        <span style={{
-          fontFamily: 'Unbounded, sans-serif',
-          fontWeight: 700,
-          fontSize: '18px',
-          color: '#f5a623',
-          letterSpacing: '-0.5px',
+      {/* Logo */}
+      <a href="#" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{
+          width: '38px', height: '38px',
+          background: '#1A3A5C',
+          borderRadius: '12px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '18px', flexShrink: 0,
         }}>
-          НАО<span style={{ color: '#f0f4f8' }}> Туризм</span>
+          ❄
+        </div>
+        <span style={{
+          fontFamily: 'Unbounded, sans-serif', fontWeight: 700,
+          fontSize: '16px', color: '#0C1F35', letterSpacing: '-0.3px',
+        }}>
+          НАО <span style={{ color: '#C47A08' }}>Туризм</span>
         </span>
       </a>
 
-      <nav style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+      {/* Nav */}
+      <nav style={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
         {navLinks.map(link => (
           <motion.a
             key={link.href}
             href={link.href}
-            whileHover={{ color: '#f5a623' }}
+            whileHover={{ color: '#0C1F35' }}
             style={{
-              color: '#94a3b8',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: 500,
-              padding: '8px 16px',
-              borderRadius: '8px',
+              color: '#5C82A0', textDecoration: 'none',
+              fontSize: '14px', fontWeight: 500,
+              padding: '8px 16px', borderRadius: '8px',
               transition: 'color 0.2s ease',
               fontFamily: 'Golos Text, sans-serif',
             }}
@@ -72,23 +69,19 @@ export default function Navbar() {
           </motion.a>
         ))}
         <motion.a
-          href="#map"
-          whileHover={{ scale: 1.04 }}
+          href="#places"
+          whileHover={{ scale: 1.04, boxShadow: '0 4px 20px rgba(196,122,8,0.35)' }}
           whileTap={{ scale: 0.97 }}
           style={{
-            marginLeft: '8px',
-            padding: '10px 20px',
-            background: 'linear-gradient(135deg, #f5a623, #fbbf24)',
-            color: '#0a1628',
-            textDecoration: 'none',
-            borderRadius: '10px',
-            fontSize: '13px',
-            fontWeight: 700,
-            fontFamily: 'Unbounded, sans-serif',
-            letterSpacing: '0.3px',
+            marginLeft: '10px', padding: '11px 26px',
+            background: '#C47A08',
+            color: '#FFFFFF', textDecoration: 'none',
+            borderRadius: '11px', fontSize: '13px', fontWeight: 700,
+            fontFamily: 'Unbounded, sans-serif', letterSpacing: '0.2px',
+            transition: 'box-shadow 0.3s ease',
           }}
         >
-          Открыть карту
+          Исследовать
         </motion.a>
       </nav>
     </motion.header>
