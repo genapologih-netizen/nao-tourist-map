@@ -17,13 +17,16 @@ export default function Categories() {
   const { isMobile } = useBreakpoint()
 
   return (
-    <section id="categories" ref={ref} style={{ padding: isMobile ? '60px 20px' : '100px 48px' }}>
+    <section id="categories" ref={ref} style={{
+      padding: isMobile ? '60px 20px' : '100px 48px',
+      width: '100%', boxSizing: 'border-box',
+    }}>
       <div style={{ maxWidth: '1340px', margin: '0 auto' }}>
 
         <div style={{ marginBottom: '52px' }}>
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
+            animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
             transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <span style={{
@@ -60,9 +63,9 @@ export default function Categories() {
           {cats.map((cat, i) => (
             <motion.button
               key={cat.label}
-              initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1.4, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
+              animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+              transition={{ duration: 1.2, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ scale: 1.04, y: -5 }}
               whileTap={{ scale: 0.97 }}
               style={{

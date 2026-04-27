@@ -26,13 +26,17 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 
 body {
   font-family: 'Golos Text', sans-serif;
   background-color: var(--bg);
   color: var(--navy-800);
   overflow-x: hidden;
+  width: 100%;
 }
 
 ::-webkit-scrollbar { width: 5px; }

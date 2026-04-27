@@ -27,9 +27,9 @@ function EmptyCard({ category, index, inView }) {
   const m = CAT_META[category] || { accent: '#5C82A0', bg: '#EEF3F8', border: '#CDD8E4', imgBg: '#E0EBF5' }
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 1.5, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
+      animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+      transition={{ duration: 1.2, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
       style={{
         borderRadius: '20px', overflow: 'hidden',
         background: '#FAFCFE', border: '1.5px dashed #CDD8E4',
@@ -91,9 +91,9 @@ function PlaceCard({ place, index, inView }) {
   const m = CAT_META[place.category] || { accent: '#1A3A5C', bg: '#EAF0F7', border: '#B8CBDE', imgBg: '#D8E5F0', icon: '📍' }
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 1.5, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
+      animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+      transition={{ duration: 1.2, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
       style={{
         borderRadius: '20px', overflow: 'hidden',
@@ -162,13 +162,17 @@ export default function PlacesGrid() {
   const { isMobile } = useBreakpoint()
 
   return (
-    <section id="places" ref={ref} style={{ padding: isMobile ? '0 20px 60px' : '0 48px 100px', maxWidth: '1340px', margin: '0 auto' }}>
+    <section id="places" ref={ref} style={{
+      padding: isMobile ? '0 20px 60px' : '0 48px 100px',
+      maxWidth: '1340px', margin: '0 auto',
+      width: '100%', boxSizing: 'border-box',
+    }}>
 
       <div style={{ marginBottom: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
+            animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
             transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <span style={{

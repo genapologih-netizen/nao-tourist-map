@@ -36,12 +36,16 @@ export default function Highlights() {
   const { isMobile, isTablet } = useBreakpoint()
 
   return (
-    <section ref={ref} style={{ padding: isMobile ? '60px 20px 0' : '100px 48px 0', maxWidth: '1340px', margin: '0 auto' }}>
+    <section ref={ref} style={{
+      padding: isMobile ? '60px 20px 0' : '100px 48px 0',
+      maxWidth: '1340px', margin: '0 auto',
+      width: '100%', boxSizing: 'border-box',
+    }}>
 
       <div style={{ marginBottom: '52px' }}>
         <motion.div
-          initial={{ opacity: 0, x: -16 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
+          initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
+          animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
           transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         >
           <span style={{
@@ -79,10 +83,10 @@ export default function Highlights() {
         {items.map((it, i) => (
           <motion.div
             key={it.num}
-            initial={{ opacity: 0, y: 70 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.6, delay: i * 0.28, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -8 }}
+            initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
+            animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ duration: 1.4, delay: 0.15 + i * 0.18, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -6 }}
             style={{
               borderRadius: '22px', overflow: 'hidden',
               border: '1px solid #CDD8E4',

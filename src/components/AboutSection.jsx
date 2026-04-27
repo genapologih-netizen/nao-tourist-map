@@ -20,6 +20,7 @@ export default function AboutSection() {
       background: '#E8EFF6',
       borderTop: '1px solid #CDD8E4',
       borderBottom: '1px solid #CDD8E4',
+      width: '100%', boxSizing: 'border-box',
     }}>
       <div style={{
         maxWidth: '1340px', margin: '0 auto',
@@ -32,8 +33,8 @@ export default function AboutSection() {
         {/* Text */}
         <div>
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
+            animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
             transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <span style={{
@@ -62,9 +63,9 @@ export default function AboutSection() {
             </motion.h2>
           </div>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.6, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
+            animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ duration: 1.4, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
             style={{ color: '#4A6E90', fontSize: '16px', lineHeight: '1.8', marginBottom: '20px', fontFamily: 'Golos Text, sans-serif' }}
           >
             Ненецкий автономный округ — самый малонаселённый регион России. Большую часть
@@ -72,9 +73,9 @@ export default function AboutSection() {
             ненцы, которые сохраняют традиционный уклад жизни, оленеводство и самобытную культуру.
           </motion.p>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.6, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
+            animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ duration: 1.4, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
             style={{ color: '#7A98B4', fontSize: '15px', lineHeight: '1.75', fontFamily: 'Golos Text, sans-serif' }}
           >
             Регион богат нефтью и газом, но сохраняет нетронутую природу: здесь гнездятся
@@ -84,17 +85,17 @@ export default function AboutSection() {
 
         {/* Stats */}
         <motion.div
-          initial={{ opacity: 0, x: isMobile ? 0 : 40, y: isMobile ? 20 : 0 }}
-          animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-          transition={{ duration: 1.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, x: isMobile ? 0 : 32, y: isMobile ? 16 : 0, filter: 'blur(8px)' }}
+          animate={inView ? { opacity: 1, x: 0, y: 0, filter: 'blur(0px)' } : {}}
+          transition={{ duration: 1.4, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}
         >
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1.4, delay: 0.5 + i * 0.2, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+              animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+              transition={{ duration: 1.2, delay: 0.5 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
               style={{ padding: '30px 24px', background: '#FFFFFF', border: '1px solid #CDD8E4', borderRadius: '18px' }}
             >
               <div style={{
