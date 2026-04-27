@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useBreakpoint } from '../hooks/useBreakpoint'
 
 const items = [
   { num: '01', tag: 'Природа',    tagBg: '#EAF3F0', tagColor: '#1A6050', borderHover: '#A8D4CC' },
@@ -9,14 +10,10 @@ const items = [
 
 function PhotoPlaceholder() {
   return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px',
-      opacity: 0.45,
-    }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', opacity: 0.45 }}>
       <div style={{
         width: '60px', height: '60px',
-        border: '1.5px dashed #A8BFD0',
-        borderRadius: '16px',
+        border: '1.5px dashed #A8BFD0', borderRadius: '16px',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         color: '#A8BFD0',
       }}>
@@ -36,41 +33,55 @@ function PhotoPlaceholder() {
 export default function Highlights() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, amount: 0.15 })
+  const { isMobile, isTablet } = useBreakpoint()
 
   return (
-    <section ref={ref} style={{ padding: '100px 48px 0', maxWidth: '1340px', margin: '0 auto' }}>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        style={{ marginBottom: '52px' }}
-      >
-        <span style={{
-          display: 'inline-block', padding: '5px 16px',
-          background: '#FEF3DC', border: '1px solid #F0C060',
-          borderRadius: '100px',
-          fontSize: '11px', fontWeight: 600, color: '#C47A08',
-          letterSpacing: '2.5px', textTransform: 'uppercase',
-          marginBottom: '18px', fontFamily: 'Golos Text, sans-serif',
-        }}>
-          Главные достопримечательности
-        </span>
-        <h2 style={{
-          fontFamily: 'Unbounded, sans-serif', fontWeight: 800,
-          fontSize: 'clamp(26px, 4vw, 46px)', color: '#0C1F35',
-          letterSpacing: '-1px', lineHeight: '1.1',
-        }}>
-          Топ места НАО
-        </h2>
-      </motion.div>
+    <section ref={ref} style={{ padding: isMobile ? '60px 20px 0' : '100px 48px 0', maxWidth: '1340px', margin: '0 auto' }}>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '22px' }}>
+      <div style={{ marginBottom: '52px' }}>
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <span style={{
+            display: 'inline-block', padding: '5px 16px',
+            background: '#FEF3DC', border: '1px solid #F0C060',
+            borderRadius: '100px',
+            fontSize: '11px', fontWeight: 600, color: '#C47A08',
+            letterSpacing: '2.5px', textTransform: 'uppercase',
+            marginBottom: '18px', fontFamily: 'Golos Text, sans-serif',
+          }}>
+            Главные достопримечательности
+          </span>
+        </motion.div>
+        <div style={{ overflow: 'hidden' }}>
+          <motion.h2
+            initial={{ clipPath: 'inset(0 100% 0 0)' }}
+            animate={inView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontFamily: 'Unbounded, sans-serif', fontWeight: 800,
+              fontSize: 'clamp(26px, 4vw, 46px)', color: '#0C1F35',
+              letterSpacing: '-1px', lineHeight: '1.1',
+            }}
+          >
+            Топ места НАО
+          </motion.h2>
+        </div>
+      </div>
+
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : 'repeat(auto-fill, minmax(360px, 1fr))',
+        gap: isMobile ? '16px' : '22px',
+      }}>
         {items.map((it, i) => (
           <motion.div
             key={it.num}
             initial={{ opacity: 0, y: 70 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.75, delay: i * 0.13, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.0, delay: i * 0.16, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -8 }}
             style={{
               borderRadius: '22px', overflow: 'hidden',
@@ -89,21 +100,16 @@ export default function Highlights() {
           >
             {/* Image zone */}
             <div style={{
-              height: '290px',
-              background: '#EBF0F6',
-              position: 'relative',
+              height: isMobile ? '220px' : '290px',
+              background: '#EBF0F6', position: 'relative',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               overflow: 'hidden',
             }}>
-              {/* dashed inset border */}
               <div style={{
                 position: 'absolute', inset: '16px',
                 border: '1.5px dashed #CDD8E4',
-                borderRadius: '14px',
-                pointerEvents: 'none',
+                borderRadius: '14px', pointerEvents: 'none',
               }} />
-
-              {/* bg number */}
               <span style={{
                 position: 'absolute', top: '20px', left: '24px',
                 fontFamily: 'Unbounded, sans-serif', fontWeight: 900,
@@ -112,15 +118,11 @@ export default function Highlights() {
               }}>
                 {it.num}
               </span>
-
               <PhotoPlaceholder />
-
-              {/* tag */}
               <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
                 <span style={{
                   padding: '5px 14px',
-                  background: it.tagBg,
-                  border: `1px solid ${it.borderHover}`,
+                  background: it.tagBg, border: `1px solid ${it.borderHover}`,
                   borderRadius: '100px',
                   fontSize: '11px', fontWeight: 600, color: it.tagColor,
                   fontFamily: 'Golos Text, sans-serif',
@@ -131,24 +133,14 @@ export default function Highlights() {
             </div>
 
             {/* Content */}
-            <div style={{ padding: '28px 28px 30px' }}>
-              {/* Title placeholder */}
-              <div style={{
-                height: '22px', width: '58%',
-                background: '#E8EFF6',
-                borderRadius: '8px', marginBottom: '14px',
-              }} />
-              {/* Description lines */}
+            <div style={{ padding: isMobile ? '20px' : '28px 28px 30px' }}>
+              <div style={{ height: '22px', width: '58%', background: '#E8EFF6', borderRadius: '8px', marginBottom: '14px' }} />
               <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', marginBottom: '24px' }}>
                 <div style={{ height: '13px', width: '100%', background: '#EEF3F8', borderRadius: '5px' }} />
                 <div style={{ height: '13px', width: '82%',  background: '#EEF3F8', borderRadius: '5px' }} />
                 <div style={{ height: '13px', width: '65%',  background: '#EEF3F8', borderRadius: '5px' }} />
               </div>
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '6px',
-                color: '#A8BFD0',
-                fontFamily: 'Golos Text, sans-serif', fontWeight: 500, fontSize: '13px',
-              }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#A8BFD0', fontFamily: 'Golos Text, sans-serif', fontWeight: 500, fontSize: '13px' }}>
                 Не заполнено
               </div>
             </div>

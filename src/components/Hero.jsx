@@ -1,18 +1,12 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-
-const stagger = {
-  animate: { transition: { staggerChildren: 0.13, delayChildren: 0.3 } },
-}
-const item = {
-  initial: { y: 48, opacity: 0 },
-  animate: { y: 0, opacity: 1, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
-}
+import { useBreakpoint } from '../hooks/useBreakpoint'
 
 export default function Hero() {
   const ref = useRef(null)
+  const { isMobile } = useBreakpoint()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const bgY  = useTransform(scrollYProgress, [0, 1], ['0%', '22%'])
+  const bgY  = useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '0%' : '22%'])
   const fade = useTransform(scrollYProgress, [0, 0.6], [1, 0])
 
   return (
@@ -49,29 +43,37 @@ export default function Hero() {
           background: 'radial-gradient(ellipse, rgba(196,122,8,0.05) 0%, transparent 68%)',
           borderRadius: '50%', filter: 'blur(70px)', animationDelay: '-1.5s',
         }} />
-        {/* Decorative large circle */}
-        <div style={{
-          position: 'absolute', top: '-15%', right: '-10%',
-          width: '700px', height: '700px',
-          border: '1px solid rgba(26,58,92,0.06)',
-          borderRadius: '50%',
-        }} />
-        <div style={{
-          position: 'absolute', top: '-5%', right: '-3%',
-          width: '480px', height: '480px',
-          border: '1px solid rgba(26,58,92,0.04)',
-          borderRadius: '50%',
-        }} />
+        {!isMobile && (
+          <>
+            <div style={{
+              position: 'absolute', top: '-15%', right: '-10%',
+              width: '700px', height: '700px',
+              border: '1px solid rgba(26,58,92,0.06)', borderRadius: '50%',
+            }} />
+            <div style={{
+              position: 'absolute', top: '-5%', right: '-3%',
+              width: '480px', height: '480px',
+              border: '1px solid rgba(26,58,92,0.04)', borderRadius: '50%',
+            }} />
+          </>
+        )}
       </div>
 
       {/* Content */}
       <motion.div
-        style={{ opacity: fade, position: 'relative', zIndex: 2, textAlign: 'center', padding: '0 24px', maxWidth: '940px' }}
-        variants={stagger}
-        initial="initial"
-        animate="animate"
+        style={{
+          opacity: fade, position: 'relative', zIndex: 2,
+          textAlign: 'center',
+          padding: isMobile ? '80px 20px 0' : '0 24px',
+          maxWidth: '940px', width: '100%',
+        }}
       >
-        <motion.div variants={item}>
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        >
           <span style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             padding: '7px 20px',
@@ -87,32 +89,47 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        <motion.h1
-          variants={item}
-          style={{
-            fontFamily: 'Unbounded, sans-serif',
-            fontWeight: 900,
-            fontSize: 'clamp(36px, 7.5vw, 90px)',
-            lineHeight: '1.02',
-            letterSpacing: '-3px',
-            marginBottom: '32px',
-            color: '#0C1F35',
-          }}
-        >
-          Самый{' '}
-          <span className="aurora-text">северный</span>
-          <br />
-          уголок Европы
-        </motion.h1>
+        {/* H1 — line-by-line writing reveal */}
+        <h1 style={{
+          fontFamily: 'Unbounded, sans-serif',
+          fontWeight: 900,
+          fontSize: isMobile ? 'clamp(32px, 10vw, 52px)' : 'clamp(36px, 7.5vw, 90px)',
+          lineHeight: '1.02',
+          letterSpacing: isMobile ? '-1px' : '-3px',
+          marginBottom: '32px',
+          color: '#0C1F35',
+        }}>
+          <div style={{ overflow: 'hidden' }}>
+            <motion.span
+              initial={{ clipPath: 'inset(0 100% 0 0)' }}
+              animate={{ clipPath: 'inset(0 0% 0 0)' }}
+              transition={{ duration: 1.5, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              style={{ display: 'block' }}
+            >
+              Самый <span className="aurora-text">северный</span>
+            </motion.span>
+          </div>
+          <div style={{ overflow: 'hidden' }}>
+            <motion.span
+              initial={{ clipPath: 'inset(0 100% 0 0)' }}
+              animate={{ clipPath: 'inset(0 0% 0 0)' }}
+              transition={{ duration: 1.5, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
+              style={{ display: 'block' }}
+            >
+              уголок Европы
+            </motion.span>
+          </div>
+        </h1>
 
+        {/* Subtitle */}
         <motion.p
-          variants={item}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: 'clamp(16px, 1.8vw, 20px)',
-            color: '#5C82A0',
-            lineHeight: '1.8',
-            maxWidth: '580px',
-            margin: '0 auto 52px',
+            fontSize: isMobile ? '15px' : 'clamp(16px, 1.8vw, 20px)',
+            color: '#5C82A0', lineHeight: '1.8',
+            maxWidth: '580px', margin: '0 auto 52px',
             fontFamily: 'Golos Text, sans-serif',
           }}
         >
@@ -120,18 +137,23 @@ export default function Hero() {
           Откройте нетронутую природу и традиции Арктики.
         </motion.p>
 
-        <motion.div variants={item} style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
+        {/* Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}
+        >
           <motion.a
             href="#places"
             whileHover={{ scale: 1.05, boxShadow: '0 8px 32px rgba(196,122,8,0.4)' }}
             whileTap={{ scale: 0.97 }}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '10px',
-              padding: '17px 44px',
-              background: '#C47A08',
-              color: '#FFFFFF', textDecoration: 'none', borderRadius: '14px',
-              fontFamily: 'Unbounded, sans-serif', fontWeight: 700,
-              fontSize: '13px', letterSpacing: '0.3px',
+              padding: isMobile ? '14px 32px' : '17px 44px',
+              background: '#C47A08', color: '#FFFFFF', textDecoration: 'none',
+              borderRadius: '14px', fontFamily: 'Unbounded, sans-serif',
+              fontWeight: 700, fontSize: '13px', letterSpacing: '0.3px',
               transition: 'box-shadow 0.3s ease',
             }}
           >
@@ -145,7 +167,7 @@ export default function Hero() {
             whileHover={{ scale: 1.03, borderColor: '#1A3A5C', color: '#0C1F35' }}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '10px',
-              padding: '17px 44px',
+              padding: isMobile ? '14px 32px' : '17px 44px',
               background: 'transparent', color: '#5C82A0',
               textDecoration: 'none', borderRadius: '14px',
               border: '1px solid #CDD8E4',
@@ -159,8 +181,10 @@ export default function Hero() {
 
         {/* Scroll indicator */}
         <motion.div
-          variants={item}
-          style={{ marginTop: '110px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 1.9 }}
+          style={{ marginTop: isMobile ? '70px' : '110px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}
         >
           <span style={{ fontSize: '10px', color: '#A8BFD0', letterSpacing: '3px', textTransform: 'uppercase', fontFamily: 'Golos Text, sans-serif' }}>
             Прокрутите

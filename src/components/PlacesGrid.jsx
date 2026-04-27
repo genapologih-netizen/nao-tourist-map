@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useBreakpoint } from '../hooks/useBreakpoint'
 
 const CAT_META = {
   'История':        { accent: '#1A3A5C', bg: '#EAF0F7', border: '#B8CBDE', imgBg: '#D8E5F0', icon: '🏛' },
@@ -11,14 +12,14 @@ const CAT_META = {
 }
 
 const places = [
-  { id: 1, title: 'Пустозёрск',          category: 'История',        desc: 'Первый русский город за Полярным кругом, основан в 1499 году. Богатейшая история освоения Севера.',                  tags: ['XVI–XVII вв.', 'Археология']  },
-  { id: 2, title: 'Тиманская тундра',     category: 'Природа',        desc: 'Нетронутые просторы арктической тундры с уникальным биоразнообразием и традиционным оленеводством.',               tags: ['Оленеводство', 'Природа']      },
-  { id: 3, title: 'Северное сияние',      category: 'Природа',        desc: 'НАО — одно из лучших мест для наблюдения северного сияния с сентября по март.',                                    tags: ['Сент–Март', 'Фотография']     },
-  { id: 4, title: 'Этнографический музей',category: 'История',        desc: 'Уникальная коллекция артефактов ненецкого народа: одежда, орудия труда, предметы быта.',                           tags: ['Нарьян-Мар', 'Культура']       },
-  { id: 5, title: 'Рыбалка на Печоре',    category: 'Активный отдых', desc: 'Один из лучших рыболовных регионов России. Сёмга, щука, хариус в экологически чистых водах.',                     tags: ['Лето', 'Рыбалка']              },
-  { id: 6, title: 'Ненецкая кухня',       category: 'Гастрономия',    desc: 'Аутентичные блюда: строганина из нельмы, оленина по-ненецки, морошка. Вкус Арктики.',                             tags: ['Рестораны', 'Традиции']        },
-  { id: 7, category: 'Этнотуризм',    empty: true },
-  { id: 8, category: 'Проживание',    empty: true },
+  { id: 1, title: 'Пустозёрск',           category: 'История',        desc: 'Первый русский город за Полярным кругом, основан в 1499 году. Богатейшая история освоения Севера.',                  tags: ['XVI–XVII вв.', 'Археология']  },
+  { id: 2, title: 'Тиманская тундра',      category: 'Природа',        desc: 'Нетронутые просторы арктической тундры с уникальным биоразнообразием и традиционным оленеводством.',               tags: ['Оленеводство', 'Природа']      },
+  { id: 3, title: 'Северное сияние',       category: 'Природа',        desc: 'НАО — одно из лучших мест для наблюдения северного сияния с сентября по март.',                                    tags: ['Сент–Март', 'Фотография']     },
+  { id: 4, title: 'Этнографический музей', category: 'История',        desc: 'Уникальная коллекция артефактов ненецкого народа: одежда, орудия труда, предметы быта.',                           tags: ['Нарьян-Мар', 'Культура']       },
+  { id: 5, title: 'Рыбалка на Печоре',     category: 'Активный отдых', desc: 'Один из лучших рыболовных регионов России. Сёмга, щука, хариус в экологически чистых водах.',                     tags: ['Лето', 'Рыбалка']              },
+  { id: 6, title: 'Ненецкая кухня',        category: 'Гастрономия',    desc: 'Аутентичные блюда: строганина из нельмы, оленина по-ненецки, морошка. Вкус Арктики.',                             tags: ['Рестораны', 'Традиции']        },
+  { id: 7, category: 'Этнотуризм',     empty: true },
+  { id: 8, category: 'Проживание',     empty: true },
   { id: 9, category: 'Активный отдых', empty: true },
 ]
 
@@ -28,15 +29,13 @@ function EmptyCard({ category, index, inView }) {
     <motion.div
       initial={{ opacity: 0, y: 60 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.9, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
       style={{
         borderRadius: '20px', overflow: 'hidden',
-        background: '#FAFCFE',
-        border: '1.5px dashed #CDD8E4',
+        background: '#FAFCFE', border: '1.5px dashed #CDD8E4',
         display: 'flex', flexDirection: 'column',
       }}
     >
-      {/* Image placeholder */}
       <div style={{
         height: '210px', background: m.imgBg,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -45,8 +44,7 @@ function EmptyCard({ category, index, inView }) {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', opacity: 0.5 }}>
           <div style={{
             width: '50px', height: '50px',
-            border: '1.5px dashed #A8BFD0',
-            borderRadius: '14px',
+            border: '1.5px dashed #A8BFD0', borderRadius: '14px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             color: '#A8BFD0',
           }}>
@@ -62,18 +60,14 @@ function EmptyCard({ category, index, inView }) {
         </div>
         <div style={{ position: 'absolute', top: '14px', right: '14px' }}>
           <span style={{
-            padding: '4px 12px',
-            background: m.bg, border: `1px solid ${m.border}`,
-            borderRadius: '100px',
-            fontSize: '11px', fontWeight: 600, color: m.accent,
+            padding: '4px 12px', background: m.bg, border: `1px solid ${m.border}`,
+            borderRadius: '100px', fontSize: '11px', fontWeight: 600, color: m.accent,
             fontFamily: 'Golos Text, sans-serif',
           }}>
             {category}
           </span>
         </div>
       </div>
-
-      {/* Skeleton content */}
       <div style={{ padding: '22px', flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <div style={{ height: '18px', width: '55%', background: '#E8EFF6', borderRadius: '6px' }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
@@ -99,7 +93,7 @@ function PlaceCard({ place, index, inView }) {
     <motion.div
       initial={{ opacity: 0, y: 60 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.9, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
       style={{
         borderRadius: '20px', overflow: 'hidden',
@@ -116,54 +110,32 @@ function PlaceCard({ place, index, inView }) {
         e.currentTarget.style.borderColor = '#CDD8E4'
       }}
     >
-      {/* Image zone */}
       <div style={{
-        height: '210px', background: m.imgBg,
-        position: 'relative',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        overflow: 'hidden',
+        height: '210px', background: m.imgBg, position: 'relative',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
       }}>
-        <span style={{ fontSize: '68px', opacity: 0.6 }}>
-          {m.icon}
-        </span>
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: `linear-gradient(to bottom, transparent 40%, ${m.imgBg}CC 100%)`,
-        }} />
+        <span style={{ fontSize: '68px', opacity: 0.6 }}>{m.icon}</span>
+        <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to bottom, transparent 40%, ${m.imgBg}CC 100%)` }} />
         <div style={{ position: 'absolute', top: '14px', right: '14px' }}>
           <span style={{
-            padding: '4px 12px',
-            background: m.bg, border: `1px solid ${m.border}`,
-            borderRadius: '100px',
-            fontSize: '11px', fontWeight: 600, color: m.accent,
+            padding: '4px 12px', background: m.bg, border: `1px solid ${m.border}`,
+            borderRadius: '100px', fontSize: '11px', fontWeight: 600, color: m.accent,
             fontFamily: 'Golos Text, sans-serif',
           }}>
             {place.category}
           </span>
         </div>
       </div>
-
-      {/* Content */}
       <div style={{ padding: '22px', flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <h3 style={{
-          fontFamily: 'Unbounded, sans-serif', fontWeight: 700,
-          fontSize: '16px', color: '#0C1F35', letterSpacing: '-0.3px',
-        }}>
+        <h3 style={{ fontFamily: 'Unbounded, sans-serif', fontWeight: 700, fontSize: '16px', color: '#0C1F35', letterSpacing: '-0.3px' }}>
           {place.title}
         </h3>
-        <p style={{
-          color: '#5C82A0', fontSize: '14px', lineHeight: '1.65',
-          fontFamily: 'Golos Text, sans-serif', flex: 1,
-        }}>
+        <p style={{ color: '#5C82A0', fontSize: '14px', lineHeight: '1.65', fontFamily: 'Golos Text, sans-serif', flex: 1 }}>
           {place.desc}
         </p>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
           {place.tags.map(tag => (
-            <span key={tag} style={{
-              padding: '3px 10px', background: '#EEF3F8',
-              borderRadius: '6px', fontSize: '11px', color: '#5C82A0',
-              fontFamily: 'Golos Text, sans-serif',
-            }}>
+            <span key={tag} style={{ padding: '3px 10px', background: '#EEF3F8', borderRadius: '6px', fontSize: '11px', color: '#5C82A0', fontFamily: 'Golos Text, sans-serif' }}>
               {tag}
             </span>
           ))}
@@ -171,11 +143,7 @@ function PlaceCard({ place, index, inView }) {
         <div style={{ borderTop: '1px solid #E0E8F0', paddingTop: '14px', marginTop: '2px' }}>
           <motion.div
             whileHover={{ x: 4 }}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              color: m.accent, fontFamily: 'Golos Text, sans-serif',
-              fontWeight: 600, fontSize: '13px', cursor: 'pointer',
-            }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: m.accent, fontFamily: 'Golos Text, sans-serif', fontWeight: 600, fontSize: '13px', cursor: 'pointer' }}
           >
             Подробнее
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -191,41 +159,45 @@ function PlaceCard({ place, index, inView }) {
 export default function PlacesGrid() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, amount: 0.08 })
+  const { isMobile } = useBreakpoint()
 
   return (
-    <section id="places" ref={ref} style={{ padding: '0 48px 100px', maxWidth: '1340px', margin: '0 auto' }}>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        style={{ marginBottom: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px' }}
-      >
+    <section id="places" ref={ref} style={{ padding: isMobile ? '0 20px 60px' : '0 48px 100px', maxWidth: '1340px', margin: '0 auto' }}>
+
+      <div style={{ marginBottom: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <span style={{
-            display: 'inline-block', padding: '5px 16px',
-            background: '#EAF0F7', border: '1px solid #B8CBDE',
-            borderRadius: '100px',
-            fontSize: '11px', fontWeight: 600, color: '#1A3A5C',
-            letterSpacing: '2.5px', textTransform: 'uppercase',
-            marginBottom: '16px', fontFamily: 'Golos Text, sans-serif',
-          }}>
-            Популярные места
-          </span>
-          <h2 style={{
-            fontFamily: 'Unbounded, sans-serif', fontWeight: 800,
-            fontSize: 'clamp(26px, 4vw, 42px)', color: '#0C1F35', letterSpacing: '-0.8px',
-          }}>
-            Куда отправиться
-          </h2>
+          <motion.div
+            initial={{ opacity: 0, x: -16 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span style={{
+              display: 'inline-block', padding: '5px 16px',
+              background: '#EAF0F7', border: '1px solid #B8CBDE',
+              borderRadius: '100px', fontSize: '11px', fontWeight: 600, color: '#1A3A5C',
+              letterSpacing: '2.5px', textTransform: 'uppercase',
+              marginBottom: '16px', fontFamily: 'Golos Text, sans-serif',
+            }}>
+              Популярные места
+            </span>
+          </motion.div>
+          <div style={{ overflow: 'hidden' }}>
+            <motion.h2
+              initial={{ clipPath: 'inset(0 100% 0 0)' }}
+              animate={inView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+              transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              style={{ fontFamily: 'Unbounded, sans-serif', fontWeight: 800, fontSize: 'clamp(26px, 4vw, 42px)', color: '#0C1F35', letterSpacing: '-0.8px' }}
+            >
+              Куда отправиться
+            </motion.h2>
+          </div>
         </div>
         <motion.button
           whileHover={{ scale: 1.03, borderColor: '#1A3A5C', color: '#0C1F35' }}
           whileTap={{ scale: 0.97 }}
           style={{
-            padding: '12px 26px',
-            background: 'transparent',
-            border: '1px solid #CDD8E4',
-            borderRadius: '10px', color: '#5C82A0',
+            padding: '12px 26px', background: 'transparent',
+            border: '1px solid #CDD8E4', borderRadius: '10px', color: '#5C82A0',
             cursor: 'pointer', fontFamily: 'Golos Text, sans-serif',
             fontSize: '14px', fontWeight: 500,
             transition: 'border-color 0.2s ease, color 0.2s ease',
@@ -233,9 +205,9 @@ export default function PlacesGrid() {
         >
           Все места →
         </motion.button>
-      </motion.div>
+      </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
         {places.map((place, i) =>
           place.empty
             ? <EmptyCard key={place.id} category={place.category} index={i} inView={inView} />

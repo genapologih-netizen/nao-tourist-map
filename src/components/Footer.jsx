@@ -1,3 +1,5 @@
+import { useBreakpoint } from '../hooks/useBreakpoint'
+
 const cols = [
   {
     title: 'Навигация',
@@ -10,10 +12,10 @@ const cols = [
   {
     title: 'Категории',
     links: [
-      { label: 'Природа',    href: '#categories' },
-      { label: 'История',    href: '#categories' },
-      { label: 'Этнотуризм',href: '#categories' },
-      { label: 'Гастрономия',href: '#categories' },
+      { label: 'Природа',     href: '#categories' },
+      { label: 'История',     href: '#categories' },
+      { label: 'Этнотуризм',  href: '#categories' },
+      { label: 'Гастрономия', href: '#categories' },
     ],
   },
   {
@@ -26,16 +28,22 @@ const cols = [
 ]
 
 export default function Footer() {
+  const { isMobile, isTablet } = useBreakpoint()
+  const gridCols = isMobile ? '1fr 1fr' : isTablet ? '1fr 1fr 1fr' : '1.6fr 1fr 1fr 1fr'
+
   return (
     <footer id="footer" style={{
       background: '#0C1F35',
-      padding: '64px 48px 40px',
+      padding: isMobile ? '48px 20px 32px' : '64px 48px 40px',
     }}>
       <div style={{ maxWidth: '1340px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: '40px', marginBottom: '56px' }}>
+        <div style={{
+          display: 'grid', gridTemplateColumns: gridCols,
+          gap: isMobile ? '32px 20px' : '40px', marginBottom: '56px',
+        }}>
 
           {/* Brand */}
-          <div>
+          <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
               <div style={{
                 width: '38px', height: '38px',
@@ -46,17 +54,11 @@ export default function Footer() {
               }}>
                 ❄
               </div>
-              <span style={{
-                fontFamily: 'Unbounded, sans-serif', fontWeight: 700,
-                fontSize: '16px', color: '#FFFFFF',
-              }}>
+              <span style={{ fontFamily: 'Unbounded, sans-serif', fontWeight: 700, fontSize: '16px', color: '#FFFFFF' }}>
                 НАО <span style={{ color: '#C47A08' }}>Туризм</span>
               </span>
             </div>
-            <p style={{
-              fontSize: '14px', color: '#4A6E90', lineHeight: '1.7',
-              fontFamily: 'Golos Text, sans-serif', maxWidth: '260px',
-            }}>
+            <p style={{ fontSize: '14px', color: '#4A6E90', lineHeight: '1.7', fontFamily: 'Golos Text, sans-serif', maxWidth: '260px' }}>
               Интерактивный гид по Ненецкому автономному округу — самому северному уголку Европы.
             </p>
           </div>
