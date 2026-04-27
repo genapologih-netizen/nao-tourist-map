@@ -29,7 +29,7 @@ function EmptyCard({ category, index, inView }) {
     <motion.div
       initial={{ opacity: 0, y: 60 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.9, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 1.5, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
       style={{
         borderRadius: '20px', overflow: 'hidden',
         background: '#FAFCFE', border: '1.5px dashed #CDD8E4',
@@ -93,7 +93,7 @@ function PlaceCard({ place, index, inView }) {
     <motion.div
       initial={{ opacity: 0, y: 60 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.9, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 1.5, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
       style={{
         borderRadius: '20px', overflow: 'hidden',
@@ -169,7 +169,7 @@ export default function PlacesGrid() {
           <motion.div
             initial={{ opacity: 0, x: -16 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <span style={{
               display: 'inline-block', padding: '5px 16px',
@@ -185,7 +185,7 @@ export default function PlacesGrid() {
             <motion.h2
               initial={{ clipPath: 'inset(0 100% 0 0)' }}
               animate={inView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-              transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 2.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               style={{ fontFamily: 'Unbounded, sans-serif', fontWeight: 800, fontSize: 'clamp(26px, 4vw, 42px)', color: '#0C1F35', letterSpacing: '-0.8px' }}
             >
               Куда отправиться

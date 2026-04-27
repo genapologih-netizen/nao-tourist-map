@@ -34,7 +34,7 @@ export default function AboutSection() {
           <motion.div
             initial={{ opacity: 0, x: -16 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <span style={{
               display: 'inline-block', padding: '5px 16px',
@@ -51,7 +51,7 @@ export default function AboutSection() {
             <motion.h2
               initial={{ clipPath: 'inset(0 100% 0 0)' }}
               animate={inView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-              transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 2.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 fontFamily: 'Unbounded, sans-serif', fontWeight: 800,
                 fontSize: 'clamp(26px, 3.5vw, 44px)', color: '#0C1F35',
@@ -64,7 +64,7 @@ export default function AboutSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.0, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.6, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
             style={{ color: '#4A6E90', fontSize: '16px', lineHeight: '1.8', marginBottom: '20px', fontFamily: 'Golos Text, sans-serif' }}
           >
             Ненецкий автономный округ — самый малонаселённый регион России. Большую часть
@@ -74,7 +74,7 @@ export default function AboutSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.0, delay: 0.56, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.6, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
             style={{ color: '#7A98B4', fontSize: '15px', lineHeight: '1.75', fontFamily: 'Golos Text, sans-serif' }}
           >
             Регион богат нефтью и газом, но сохраняет нетронутую природу: здесь гнездятся
@@ -86,7 +86,7 @@ export default function AboutSection() {
         <motion.div
           initial={{ opacity: 0, x: isMobile ? 0 : 40, y: isMobile ? 20 : 0 }}
           animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-          transition={{ duration: 1.0, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}
         >
           {stats.map((stat, i) => (
@@ -94,7 +94,7 @@ export default function AboutSection() {
               key={stat.label}
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.35 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 1.4, delay: 0.5 + i * 0.2, ease: [0.22, 1, 0.36, 1] }}
               style={{ padding: '30px 24px', background: '#FFFFFF', border: '1px solid #CDD8E4', borderRadius: '18px' }}
             >
               <div style={{

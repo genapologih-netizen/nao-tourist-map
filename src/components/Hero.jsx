@@ -72,7 +72,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.4, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           <span style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
@@ -103,7 +103,7 @@ export default function Hero() {
             <motion.span
               initial={{ clipPath: 'inset(0 100% 0 0)' }}
               animate={{ clipPath: 'inset(0 0% 0 0)' }}
-              transition={{ duration: 1.5, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 2.4, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: 'block' }}
             >
               Самый <span className="aurora-text">северный</span>
@@ -113,7 +113,7 @@ export default function Hero() {
             <motion.span
               initial={{ clipPath: 'inset(0 100% 0 0)' }}
               animate={{ clipPath: 'inset(0 0% 0 0)' }}
-              transition={{ duration: 1.5, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 2.4, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: 'block' }}
             >
               уголок Европы
@@ -125,7 +125,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.6, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
           style={{
             fontSize: isMobile ? '15px' : 'clamp(16px, 1.8vw, 20px)',
             color: '#5C82A0', lineHeight: '1.8',
@@ -141,7 +141,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.6, delay: 2.1, ease: [0.22, 1, 0.36, 1] }}
           style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}
         >
           <motion.a
@@ -183,7 +183,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 1.9 }}
+          transition={{ duration: 1.5, delay: 2.8 }}
           style={{ marginTop: isMobile ? '70px' : '110px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}
         >
           <span style={{ fontSize: '10px', color: '#A8BFD0', letterSpacing: '3px', textTransform: 'uppercase', fontFamily: 'Golos Text, sans-serif' }}>

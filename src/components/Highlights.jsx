@@ -42,7 +42,7 @@ export default function Highlights() {
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         >
           <span style={{
             display: 'inline-block', padding: '5px 16px',
@@ -59,7 +59,7 @@ export default function Highlights() {
           <motion.h2
             initial={{ clipPath: 'inset(0 100% 0 0)' }}
             animate={inView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-            transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 2.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: 'Unbounded, sans-serif', fontWeight: 800,
               fontSize: 'clamp(26px, 4vw, 46px)', color: '#0C1F35',
@@ -81,7 +81,7 @@ export default function Highlights() {
             key={it.num}
             initial={{ opacity: 0, y: 70 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.0, delay: i * 0.16, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.6, delay: i * 0.28, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -8 }}
             style={{
               borderRadius: '22px', overflow: 'hidden',
